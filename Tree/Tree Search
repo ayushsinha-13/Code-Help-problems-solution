@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+class node{
+  public:
+  int data;
+  node* left;
+  node* right;
+  
+  node(int d){
+      this->data = d;
+      this->left = NULL;
+      this->right = NULL;
+  }
+};
+
+node* buildTree(node* root){
+    int d;
+    cin>>d;
+    root = new node(d);
+    
+    if(d==-1){
+        return NULL;
+    }
+    
+    root->left = buildTree(root->left);
+    root->right = buildTree(root->right);
+    return root;
+}
+
+int cnt = 0;
+
+void search(node* root, int key){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    if(root->data == key){
+        cout<<"Element Found";
+        cnt=1;
+        return;
+    }
+    search(root->left,key);
+    search(root->right, key);
+    if(cnt == 0){
+        cout<<"Not Found";
+        cnt++;
+    }
+}
+
+int main(){
+    node* root = NULL;
+    root = buildTree(root);
+    search(root,9);
+    cnt = 0;
+}
